@@ -7,7 +7,7 @@ interface GameMenuProps {
 
 export const GameMenu: React.FC<GameMenuProps> = ({ onStartGame }) => {
 	return (
-		<div className="absolute inset-0 flex flex-col items-center justify-center bg-black/80 rounded-2xl">
+		<div className="flex flex-col items-center justify-center p-8">
 			<h2 className="text-4xl font-bold text-white mb-8">Tap Ripple</h2>
 			<p className="text-white mb-4 text-center px-8">
 				画面をタップして美しい波紋を作ろう

@@ -325,28 +325,34 @@ const TapRipple: React.FC = () => {
 				)}
 
 				<div className="relative">
-					<canvas
-						ref={canvasRef}
-						width={400}
-						height={600}
-						onPointerDown={handlePointerDown}
-						onPointerUp={handlePointerUp}
-						onPointerMove={handlePointerMove}
-						onPointerLeave={handlePointerUp}
-						onContextMenu={(e) => e.preventDefault()}
-						onTouchStart={(e) => e.preventDefault()}
-						className="bg-gray-900 rounded-2xl cursor-pointer border-2 border-gray-700 select-none"
-						style={{
-							backgroundColor: colors.bg,
-							touchAction: "none",
-							userSelect: "none",
-							WebkitUserSelect: "none",
-							WebkitTouchCallout: "none",
-							WebkitTapHighlightColor: "transparent",
-						}}
-					/>
+					{gameState !== "ready" && (
+						<canvas
+							ref={canvasRef}
+							width={400}
+							height={600}
+							onPointerDown={handlePointerDown}
+							onPointerUp={handlePointerUp}
+							onPointerMove={handlePointerMove}
+							onPointerLeave={handlePointerUp}
+							onContextMenu={(e) => e.preventDefault()}
+							onTouchStart={(e) => e.preventDefault()}
+							className="bg-gray-900 rounded-2xl cursor-pointer border-2 border-gray-700 select-none"
+							style={{
+								backgroundColor: colors.bg,
+								touchAction: "none",
+								userSelect: "none",
+								WebkitUserSelect: "none",
+								WebkitTouchCallout: "none",
+								WebkitTapHighlightColor: "transparent",
+							}}
+						/>
+					)}
 
-					{gameState === "ready" && <GameMenu onStartGame={startGame} />}
+					{gameState === "ready" && (
+						<div className="w-[400px] h-[600px] flex items-center justify-center bg-gray-900 rounded-2xl border-2 border-gray-700">
+							<GameMenu onStartGame={startGame} />
+						</div>
+					)}
 
 					{gameState === "gameover" && (
 						<GameOverScreen
