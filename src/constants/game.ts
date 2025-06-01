@@ -9,13 +9,53 @@ export const scales: Record<ScaleType, number[]> = {
 	japanese: [261.63, 277.18, 329.63, 349.23, 415.3, 523.25], // Japanese Scale
 };
 
-// カラーパレット
+// レトロポップなカラーパレット
 export const colors = {
-	bg: "#0a0a1a",
-	ripple: ["#FF006E", "#FB5607", "#FFBE0B", "#8338EC", "#3A86FF"],
-	particle: "#FFE66D",
-	target: "#06FFA5",
-	grid: "#FFFFFF15",
+	// 背景色（温かみのあるクリーム色）
+	bg: "#FFF8E7",
+	bgDark: "#FFE5B4",
+
+	// メイン背景のグラデーション
+	bgGradient1: "#FFD6BA",
+	bgGradient2: "#FFEAA7",
+	bgGradient3: "#DFE6E9",
+
+	// 波紋の色（ビビッドでポップな色）
+	ripple: [
+		"#FF6B9D",
+		"#C44569",
+		"#FFC75F",
+		"#F8B500",
+		"#9B59B6",
+		"#3498DB",
+		"#1ABC9C",
+	],
+
+	// パーティクル（キラキラした黄色）
+	particle: "#FFD700",
+	particleAlt: "#FFA500",
+
+	// ターゲット（ネオンピンク）
+	target: "#FF1744",
+	targetGlow: "#FF6B9D",
+
+	// グリッド（薄い紫）
+	grid: "#9B59B633",
+
+	// UI要素の色
+	primary: "#FF6B9D",
+	secondary: "#C44569",
+	accent: "#FFD93D",
+	success: "#6BCF7F",
+	warning: "#FFA500",
+
+	// テキスト色
+	text: "#2D3436",
+	textLight: "#636E72",
+
+	// ボタンの影色
+	shadow: "#00000020",
+	shadowDark: "#00000040",
 };
 
 // ゲーム設定

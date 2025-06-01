@@ -1,3 +1,4 @@
+import { colors } from "../constants/game";
 import type { GameMode, ScaleType } from "../types/game";
 
 interface GameStatsProps {
@@ -15,29 +16,129 @@ export const GameStats: React.FC<GameStatsProps> = ({
 	timeLeft,
 	currentScale,
 }) => {
+	const scaleNameMap: Record<ScaleType, string> = {
+		major: "メジャー",
+		minor: "マイナー",
+		pentatonic: "ペンタトニック",
+		blues: "ブルース",
+		japanese: "日本音階",
+	};
+
 	return (
-		<div className="flex gap-4 mb-4 text-white">
+		<div className="flex gap-4 mb-4">
 			{gameMode !== "zen" && (
 				<>
-					<div className="bg-gray-700 rounded-lg px-4 py-2">
-						<div className="text-sm opacity-80">Score</div>
-						<div className="text-2xl font-bold">{score}</div>
+					<div
+						className="rounded-xl px-5 py-3 shadow-lg"
+						style={{
+							backgroundColor: "white",
+							border: `3px solid ${colors.primary}`,
+							boxShadow: "0 4px 0 rgba(0, 0, 0, 0.2)",
+						}}
+					>
+						<div
+							className="text-sm font-semibold"
+							style={{
+								color: colors.textLight,
+								fontFamily: "var(--font-japanese)",
+							}}
+						>
+							スコア
+						</div>
+						<div
+							className="text-3xl font-bold"
+							style={{
+								color: colors.primary,
+								fontFamily: "var(--font-display)",
+							}}
+						>
+							{score}
+						</div>
 					</div>
-					<div className="bg-gray-700 rounded-lg px-4 py-2">
-						<div className="text-sm opacity-80">Combo</div>
-						<div className="text-2xl font-bold">x{combo}</div>
+					<div
+						className="rounded-xl px-5 py-3 shadow-lg"
+						style={{
+							backgroundColor: "white",
+							border: `3px solid ${colors.accent}`,
+							boxShadow: "0 4px 0 rgba(0, 0, 0, 0.2)",
+						}}
+					>
+						<div
+							className="text-sm font-semibold"
+							style={{
+								color: colors.textLight,
+								fontFamily: "var(--font-japanese)",
+							}}
+						>
+							コンボ
+						</div>
+						<div
+							className="text-3xl font-bold"
+							style={{
+								color: colors.accent,
+								fontFamily: "var(--font-display)",
+							}}
+						>
+							x{combo}
+						</div>
 					</div>
 				</>
 			)}
 			{gameMode === "time" && (
-				<div className="bg-gray-700 rounded-lg px-4 py-2">
-					<div className="text-sm opacity-80">Time</div>
-					<div className="text-2xl font-bold">{timeLeft}s</div>
+				<div
+					className="rounded-xl px-5 py-3 shadow-lg"
+					style={{
+						backgroundColor: "white",
+						border: `3px solid ${colors.warning}`,
+						boxShadow: "0 4px 0 rgba(0, 0, 0, 0.2)",
+					}}
+				>
+					<div
+						className="text-sm font-semibold"
+						style={{
+							color: colors.textLight,
+							fontFamily: "var(--font-japanese)",
+						}}
+					>
+						残り時間
+					</div>
+					<div
+						className="text-3xl font-bold"
+						style={{
+							color: timeLeft <= 10 ? colors.target : colors.warning,
+							fontFamily: "var(--font-display)",
+						}}
+					>
+						{timeLeft}s
+					</div>
 				</div>
 			)}
-			<div className="bg-gray-700 rounded-lg px-4 py-2">
-				<div className="text-sm opacity-80">Scale</div>
-				<div className="text-lg font-bold capitalize">{currentScale}</div>
+			<div
+				className="rounded-xl px-5 py-3 shadow-lg"
+				style={{
+					backgroundColor: "white",
+					border: `3px solid ${colors.secondary}`,
+					boxShadow: "0 4px 0 rgba(0, 0, 0, 0.2)",
+				}}
+			>
+				<div
+					className="text-sm font-semibold"
+					style={{
+						color: colors.textLight,
+						fontFamily: "var(--font-japanese)",
+					}}
+				>
+					音階
+				</div>
+				<div
+					className="text-xl font-bold"
+					style={{
+						color: colors.secondary,
+						fontFamily: "var(--font-japanese)",
+					}}
+				>
+					{scaleNameMap[currentScale]}
+				</div>
 			</div>
 		</div>
 	);

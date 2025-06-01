@@ -1,4 +1,5 @@
 import { Music, Sparkles, Volume2, VolumeX } from "lucide-react";
+import { colors } from "../constants/game";
 
 interface GameControlsProps {
 	showGrid: boolean;
@@ -15,25 +16,40 @@ export const GameControls: React.FC<GameControlsProps> = ({
 }) => {
 	return (
 		<div className="flex justify-between items-center mb-4">
-			<h1 className="text-3xl font-bold text-white flex items-center gap-2">
-				<Sparkles className="text-purple-400" />
+			<h1
+				className="text-4xl flex items-center gap-3"
+				style={{
+					fontFamily: "var(--font-display)",
+					color: colors.primary,
+					textShadow: `0 0 10px ${colors.primary}40`,
+				}}
+			>
+				<Sparkles className="animate-pulse" style={{ color: colors.accent }} />
 				Tap Ripple
 			</h1>
 			<div className="flex gap-2">
 				<button
 					type="button"
 					onClick={onToggleGrid}
-					className={`text-white p-2 rounded-lg transition-colors ${showGrid ? "bg-purple-600" : "hover:bg-gray-700"}`}
+					className={`p-3 rounded-full transition-all btn-3d ${showGrid ? "scale-110" : "hover:scale-105"}`}
+					style={{
+						backgroundColor: showGrid ? colors.primary : colors.secondary,
+						color: "white",
+					}}
 					title="Toggle Grid (G)"
 				>
-					<Music />
+					<Music size={24} />
 				</button>
 				<button
 					type="button"
 					onClick={onToggleSound}
-					className="text-white p-2 rounded-lg hover:bg-gray-700 transition-colors"
+					className="p-3 rounded-full transition-all btn-3d hover:scale-105"
+					style={{
+						backgroundColor: soundEnabled ? colors.success : colors.warning,
+						color: "white",
+					}}
 				>
-					{soundEnabled ? <Volume2 /> : <VolumeX />}
+					{soundEnabled ? <Volume2 size={24} /> : <VolumeX size={24} />}
 				</button>
 			</div>
 		</div>

@@ -1,5 +1,19 @@
 import type React from "react";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { GameControls } from "./components/GameControls";
+import { GameMenu } from "./components/GameMenu";
+import { GameOverScreen } from "./components/GameOverScreen";
+import { GameStats } from "./components/GameStats";
+import {
+	DEFAULT_BPM,
+	DEFAULT_TIME_LIMIT,
+	TAP_THRESHOLD,
+	colors,
+	scales,
+} from "./constants/game";
+import { useAudio } from "./hooks/useAudio";
+import { useGameLogic } from "./hooks/useGameLogic";
+import { useGameRenderer } from "./hooks/useGameRenderer";
 import type {
 	GameMode,
 	GameObjects,
@@ -7,20 +21,6 @@ import type {
 	ScaleType,
 	TouchState,
 } from "./types/game";
-import {
-	colors,
-	scales,
-	DEFAULT_BPM,
-	DEFAULT_TIME_LIMIT,
-	TAP_THRESHOLD,
-} from "./constants/game";
-import { useAudio } from "./hooks/useAudio";
-import { useGameLogic } from "./hooks/useGameLogic";
-import { useGameRenderer } from "./hooks/useGameRenderer";
-import { GameControls } from "./components/GameControls";
-import { GameMenu } from "./components/GameMenu";
-import { GameOverScreen } from "./components/GameOverScreen";
-import { GameStats } from "./components/GameStats";
 
 const TapRipple: React.FC = () => {
 	const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -299,14 +299,75 @@ const TapRipple: React.FC = () => {
 
 	return (
 		<div
-			className="flex flex-col items-center justify-center min-h-screen bg-gray-900 p-4 select-none"
+			className="flex flex-col items-center justify-center min-h-screen bg-retro-gradient p-4 select-none relative overflow-hidden"
 			style={{
 				userSelect: "none",
 				WebkitUserSelect: "none",
 				WebkitTouchCallout: "none",
+				background: `linear-gradient(135deg, ${colors.bgGradient1} 0%, ${colors.bgGradient2} 50%, ${colors.bgGradient3} 100%)`,
 			}}
 		>
-			<div className="bg-gray-800 rounded-3xl p-6 shadow-2xl">
+			{/* 背景装飾 */}
+			<div className="absolute inset-0 overflow-hidden pointer-events-none">
+				{/* ドットパターン */}
+				<div className="absolute inset-0 bg-dots opacity-10" />
+
+				{/* 浮遊する円 */}
+				<div
+					className="absolute w-32 h-32 rounded-full animate-float"
+					style={{
+						top: "10%",
+						left: "5%",
+						background: `radial-gradient(circle, ${colors.primary}20, transparent)`,
+					}}
+				/>
+				<div
+					className="absolute w-48 h-48 rounded-full animate-float"
+					style={{
+						bottom: "20%",
+						right: "10%",
+						background: `radial-gradient(circle, ${colors.accent}20, transparent)`,
+						animationDelay: "2s",
+					}}
+				/>
+				<div
+					className="absolute w-24 h-24 rounded-full animate-float"
+					style={{
+						top: "60%",
+						left: "80%",
+						background: `radial-gradient(circle, ${colors.success}20, transparent)`,
+						animationDelay: "4s",
+					}}
+				/>
+
+				{/* キラキラ装飾 */}
+				<div
+					className="absolute top-20 left-40 text-4xl animate-pulse"
+					style={{ color: colors.particle }}
+				>
+					✨
+				</div>
+				<div
+					className="absolute bottom-32 right-24 text-3xl animate-pulse"
+					style={{ color: colors.accent, animationDelay: "1s" }}
+				>
+					⭐
+				</div>
+				<div
+					className="absolute top-1/2 left-20 text-2xl animate-pulse"
+					style={{ color: colors.primary, animationDelay: "2s" }}
+				>
+					💫
+				</div>
+			</div>
+
+			<div
+				className="bg-white/90 backdrop-blur-sm rounded-3xl p-6 shadow-2xl border-4 border-dashed relative z-10"
+				style={{
+					borderColor: colors.primary,
+					boxShadow: "0 10px 30px rgba(0, 0, 0, 0.3)",
+				}}
+			>
 				<GameControls
 					showGrid={showGrid}
 					soundEnabled={soundEnabled}
@@ -336,9 +397,10 @@ const TapRipple: React.FC = () => {
 							onPointerLeave={handlePointerUp}
 							onContextMenu={(e) => e.preventDefault()}
 							onTouchStart={(e) => e.preventDefault()}
-							className="bg-gray-900 rounded-2xl cursor-pointer border-2 border-gray-700 select-none"
+							className="rounded-2xl cursor-pointer border-4 select-none"
 							style={{
 								backgroundColor: colors.bg,
+								borderColor: colors.primary,
 								touchAction: "none",
 								userSelect: "none",
 								WebkitUserSelect: "none",
@@ -349,7 +411,13 @@ const TapRipple: React.FC = () => {
 					)}
 
 					{gameState === "ready" && (
-						<div className="w-[400px] h-[600px] flex items-center justify-center bg-gray-900 rounded-2xl border-2 border-gray-700">
+						<div
+							className="w-[400px] h-[600px] flex items-center justify-center rounded-2xl border-4"
+							style={{
+								backgroundColor: colors.bg,
+								borderColor: colors.primary,
+							}}
+						>
 							<GameMenu onStartGame={startGame} />
 						</div>
 					)}
@@ -364,8 +432,11 @@ const TapRipple: React.FC = () => {
 				</div>
 
 				{gameState === "playing" && (
-					<div className="mt-4 text-white text-center">
-						<p className="text-sm opacity-80">
+					<div className="mt-4 text-center">
+						<p
+							className="text-sm font-semibold"
+							style={{ color: colors.text, fontFamily: "var(--font-japanese)" }}
+						>
 							{gameMode === "zen" &&
 								"長押し or 連続タップで大きな波紋、重なりで和音を楽しもう"}
 							{gameMode === "score" &&

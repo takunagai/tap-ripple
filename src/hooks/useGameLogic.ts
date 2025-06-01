@@ -1,4 +1,5 @@
 import { useCallback } from "react";
+import { colors, scales } from "../constants/game";
 import type {
 	GameMode,
 	GameObjects,
@@ -6,7 +7,6 @@ import type {
 	Ripple,
 	ScaleType,
 } from "../types/game";
-import { colors, scales } from "../constants/game";
 
 interface UseGameLogicProps {
 	gameMode: GameMode;

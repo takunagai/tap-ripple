@@ -3,18 +3,30 @@
 @tailwind utilities;
 
 :root {
-	font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+	font-family: "Fredoka", "M PLUS Rounded 1c", system-ui, sans-serif;
 	line-height: 1.5;
 	font-weight: 400;
 
-	color-scheme: dark;
-	color: rgba(255, 255, 255, 0.87);
-	background-color: #242424;
+	color-scheme: light;
+	color: #2d3436;
+	background-color: #fff8e7;
 
 	font-synthesis: none;
 	text-rendering: optimizeLegibility;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
+
+	/* レトロポップなカスタムプロパティ */
+	--font-display: "Bungee", cursive;
+	--font-main: "Fredoka", sans-serif;
+	--font-japanese: "M PLUS Rounded 1c", sans-serif;
+	--color-primary: #ff6b9d;
+	--color-secondary: #c44569;
+	--color-accent: #ffd93d;
+	--color-success: #6bcf7f;
+	--color-warning: #ffa500;
+	--shadow-3d: 0 4px 0 rgba(0, 0, 0, 0.2);
+	--shadow-3d-hover: 0 2px 0 rgba(0, 0, 0, 0.2);
 }
 
 body {
@@ -28,4 +40,211 @@ body {
 #root {
 	width: 100%;
 	height: 100vh;
+}
+
+/* レトロポップなボタンスタイル */
+@layer components {
+	.btn-3d {
+		@apply font-bold py-3 px-6 rounded-full transition-all duration-150 transform;
+		box-shadow: var(--shadow-3d);
+	}
+	.btn-3d:hover {
+		@apply translate-y-0.5;
+		box-shadow: var(--shadow-3d-hover);
+	}
+	.btn-3d:active {
+		@apply translate-y-1;
+		box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+	}
+
+	/* ネオンテキスト効果 */
+	.text-neon {
+		text-shadow: 0 0 10px currentColor, 0 0 20px currentColor, 0 0 30px
+			currentColor;
+	}
+
+	/* レトログラデーション背景 */
+	.bg-retro-gradient {
+		background: linear-gradient(135deg, #ffd6ba 0%, #ffeaa7 50%, #dfe6e9 100%);
+	}
+
+	/* ポップな装飾枠 */
+	.border-pop {
+		@apply border-4 border-dashed;
+		border-image: repeating-linear-gradient(
+				45deg,
+				#ff6b9d,
+				#ff6b9d 10px,
+				#ffd93d 10px,
+				#ffd93d 20px
+			)
+			1;
+	}
+
+	/* レトロパターン背景 */
+	.bg-retro-pattern {
+		background-color: var(--color-accent);
+		background-image: radial-gradient(
+				circle at 10% 20%,
+				rgba(255, 107, 157, 0.2) 0%,
+				transparent 50%
+			),
+			radial-gradient(
+				circle at 80% 80%,
+				rgba(255, 217, 61, 0.2) 0%,
+				transparent 50%
+			),
+			radial-gradient(
+				circle at 40% 40%,
+				rgba(155, 89, 182, 0.1) 0%,
+				transparent 50%
+			),
+			radial-gradient(
+				circle at 90% 10%,
+				rgba(52, 152, 219, 0.1) 0%,
+				transparent 50%
+			);
+		background-size: 100% 100%;
+		position: relative;
+	}
+
+	.bg-retro-pattern::before {
+		content: "";
+		position: absolute;
+		inset: 0;
+		background-image: repeating-linear-gradient(
+				45deg,
+				transparent,
+				transparent 35px,
+				rgba(255, 107, 157, 0.05) 35px,
+				rgba(255, 107, 157, 0.05) 70px
+			),
+			repeating-linear-gradient(
+				-45deg,
+				transparent,
+				transparent 35px,
+				rgba(255, 217, 61, 0.05) 35px,
+				rgba(255, 217, 61, 0.05) 70px
+			);
+		pointer-events: none;
+	}
+
+	/* ドットパターン */
+	.bg-dots {
+		background-image: radial-gradient(
+			circle,
+			rgba(0, 0, 0, 0.1) 1px,
+			transparent 1px
+		);
+		background-size: 20px 20px;
+	}
+
+	/* ウェーブアニメーション */
+	@keyframes wave {
+		0%,
+		100% {
+			transform: translateY(0);
+		}
+		50% {
+			transform: translateY(-10px);
+		}
+	}
+
+	.animate-wave {
+		animation: wave 3s ease-in-out infinite;
+	}
+
+	/* フロートアニメーション */
+	@keyframes float {
+		0%,
+		100% {
+			transform: translateY(0) rotate(0deg);
+		}
+		33% {
+			transform: translateY(-10px) rotate(2deg);
+		}
+		66% {
+			transform: translateY(-5px) rotate(-2deg);
+		}
+	}
+
+	.animate-float {
+		animation: float 6s ease-in-out infinite;
+	}
+
+	/* ポップインアニメーション */
+	@keyframes popIn {
+		0% {
+			transform: scale(0) rotate(-180deg);
+			opacity: 0;
+		}
+		50% {
+			transform: scale(1.2) rotate(10deg);
+		}
+		100% {
+			transform: scale(1) rotate(0deg);
+			opacity: 1;
+		}
+	}
+
+	.animate-pop-in {
+		animation: popIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+	}
+
+	/* ラバーバンドアニメーション */
+	@keyframes rubberBand {
+		0% {
+			transform: scale(1);
+		}
+		30% {
+			transform: scale(1.25, 0.75);
+		}
+		40% {
+			transform: scale(0.75, 1.25);
+		}
+		50% {
+			transform: scale(1.15, 0.85);
+		}
+		65% {
+			transform: scale(0.95, 1.05);
+		}
+		75% {
+			transform: scale(1.05, 0.95);
+		}
+		100% {
+			transform: scale(1);
+		}
+	}
+
+	.animate-rubber-band {
+		animation: rubberBand 1s;
+	}
+
+	/* レインボーアニメーション */
+	@keyframes rainbow {
+		0% {
+			filter: hue-rotate(0deg);
+		}
+		100% {
+			filter: hue-rotate(360deg);
+		}
+	}
+
+	.animate-rainbow {
+		animation: rainbow 3s linear infinite;
+	}
+
+	/* 回転アニメーション */
+	@keyframes spin {
+		from {
+			transform: rotate(0deg);
+		}
+		to {
+			transform: rotate(360deg);
+		}
+	}
+
+	.animate-spin-slow {
+		animation: spin 10s linear infinite;
+	}
 }
