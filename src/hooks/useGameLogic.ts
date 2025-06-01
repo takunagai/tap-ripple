@@ -12,7 +12,7 @@ interface UseGameLogicProps {
 	gameMode: GameMode;
 	currentScale: ScaleType;
 	gameObjects: React.MutableRefObject<GameObjects>;
-	canvasRef: React.RefObject<HTMLCanvasElement>;
+	canvasRef: React.RefObject<HTMLCanvasElement | null>;
 	setScore: React.Dispatch<React.SetStateAction<number>>;
 	setCombo: React.Dispatch<React.SetStateAction<number>>;
 	combo: number;
