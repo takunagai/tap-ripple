@@ -1,8 +1,8 @@
-import TapRipple from './TapRipple'
-import './App.css'
+import TapRipple from "./TapRipple";
+import "./App.css";
 
 function App() {
-  return <TapRipple />
+	return <TapRipple />;
 }
 
-export default App
+export default App;
