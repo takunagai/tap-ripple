@@ -30,22 +30,25 @@ export const useGameLogic = ({
 	createChord,
 }: UseGameLogicProps) => {
 	// パーティクル作成
-	const createParticles = useCallback((x: number, y: number, count = 10) => {
-		for (let i = 0; i < count; i++) {
-			const angle = (Math.PI * 2 * i) / count;
-			const speed = 2 + Math.random() * 3;
-			const particle: Particle = {
-				x,
-				y,
-				vx: Math.cos(angle) * speed,
-				vy: Math.sin(angle) * speed,
-				life: 1,
-				color: colors.particle,
-				size: 3 + Math.random() * 3,
-			};
-			gameObjects.current.particles.push(particle);
-		}
-	}, [gameObjects]);
+	const createParticles = useCallback(
+		(x: number, y: number, count = 10) => {
+			for (let i = 0; i < count; i++) {
+				const angle = (Math.PI * 2 * i) / count;
+				const speed = 2 + Math.random() * 3;
+				const particle: Particle = {
+					x,
+					y,
+					vx: Math.cos(angle) * speed,
+					vy: Math.sin(angle) * speed,
+					life: 1,
+					color: colors.particle,
+					size: 3 + Math.random() * 3,
+				};
+				gameObjects.current.particles.push(particle);
+			}
+		},
+		[gameObjects],
+	);
 
 	// 波紋の作成（長押し対応）
 	const createRipple = useCallback(
@@ -87,7 +90,15 @@ export const useGameLogic = ({
 				});
 			}
 		},
-		[currentScale, canvasRef, gameObjects, createChord, gameMode, setScore, createParticles],
+		[
+			currentScale,
+			canvasRef,
+			gameObjects,
+			createChord,
+			gameMode,
+			setScore,
+			createParticles,
+		],
 	);
 
 	// 波紋の交差判定（和音生成）
@@ -157,7 +168,15 @@ export const useGameLogic = ({
 		if (currentIntersections.size === 0 && combo > 0) {
 			setTimeout(() => setCombo(0), 1000);
 		}
-	}, [combo, gameMode, createChord, createParticles, gameObjects, setScore, setCombo]);
+	}, [
+		combo,
+		gameMode,
+		createChord,
+		createParticles,
+		gameObjects,
+		setScore,
+		setCombo,
+	]);
 
 	// ターゲット生成
 	const spawnTarget = useCallback(() => {

@@ -7,7 +7,13 @@ import type {
 	ScaleType,
 	TouchState,
 } from "./types/game";
-import { colors, scales, DEFAULT_BPM, DEFAULT_TIME_LIMIT, TAP_THRESHOLD } from "./constants/game";
+import {
+	colors,
+	scales,
+	DEFAULT_BPM,
+	DEFAULT_TIME_LIMIT,
+	TAP_THRESHOLD,
+} from "./constants/game";
 import { useAudio } from "./hooks/useAudio";
 import { useGameLogic } from "./hooks/useGameLogic";
 import { useGameRenderer } from "./hooks/useGameRenderer";
